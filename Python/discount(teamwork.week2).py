@@ -1,8 +1,13 @@
 from datetime import datetime
 
+current_date_and_time = datetime.now()
+
+day_of_week = current_date_and_time.weekday()
+
+
 subtotal = float(input("Please enter the subtotal: "))
 
-if subtotal <= 50:
+if subtotal < 50:
     tax = subtotal * (6 / 100)
     total = subtotal + tax
     print(f"Sales tax amount: {tax: .2f}")
