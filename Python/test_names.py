@@ -1,10 +1,11 @@
+
 from names import make_full_name, \
     extract_family_name, extract_given_name
 import pytest
 
-def make_full_name():
+def test_make_full_name():
     assert make_full_name("Cuangana", "Floriano") == "Floriano; Cuangana"
-    
+
     
 
 def test_extract_family_name():
@@ -12,7 +13,7 @@ def test_extract_family_name():
     
 
 def test_extract_given_name():
-    assert test_extract_given_name("Cuangana; Floriano") == "Floriano"
+    assert extract_given_name("Cuangana; Floriano") == "Floriano"
     
 
 
