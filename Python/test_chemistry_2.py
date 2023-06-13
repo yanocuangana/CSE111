@@ -142,15 +142,15 @@ def check_element(periodic_table_dict, symbol, expected):
     act_name = actual[NAME_INDEX]
     exp_name = expected[NAME_INDEX]
     assert act_name == exp_name, \
-            f'wrong name for "{symbol}": ' \
-            f'expected {exp_name} but found {act_name}'
+        f'wrong name for "{symbol}": ' \
+        f'expected {exp_name} but found {act_name}'
 
     # Verify that the element's atomic mass is correct.
     act_mass = actual[ATOMIC_MASS_INDEX]
     exp_mass = expected[ATOMIC_MASS_INDEX]
     assert act_mass == approx(exp_mass), \
-            f"wrong atomic mass for {exp_name}: " \
-            f"expected {exp_mass} but found {act_mass}"
+        f"wrong atomic mass for {exp_name}: " \
+        f"expected {exp_mass} but found {act_mass}"
 
 
 def test_parse_formula():
@@ -176,11 +176,11 @@ def test_parse_formula():
     # Call the compute_molar_mass function four times and
     # verify that it returns the correct number each time.
     assert parse_formula("H2O", periodic_table_dict) \
-            == [("H",2), ("O",1)]
+        == [("H",2), ("O",1)]
     assert parse_formula("C6H6", periodic_table_dict) \
-            == [("C",6), ("H",6)]
+        == [("C",6), ("H",6)]
     assert parse_formula("(C2(NaCl)4H2)2C4Na", periodic_table_dict) \
-            == [("C",8), ("Na",9), ("Cl",8), ("H",4)]
+        == [("C",8), ("Na",9), ("Cl",8), ("H",4)]
 
     # Call the parse_forumla function six times, each time
     # with a different invalid chemical formula. Verify that
@@ -223,11 +223,11 @@ def test_compute_molar_mass():
     # verify that it returns the correct number each time.
     assert compute_molar_mass([], periodic_table_dict) == 0
     assert compute_molar_mass([["O",2]], periodic_table_dict) \
-            == approx(31.9988)
+        == approx(31.9988)
     assert compute_molar_mass([["C",6],["H",6]], periodic_table_dict) \
-            == approx(78.11184)
+        == approx(78.11184)
     assert compute_molar_mass([["C",13],["H",16],["N",2],["O",2]],
-            periodic_table_dict) == approx(232.27834)
+        periodic_table_dict) == approx(232.27834)
 
 
 # Call the main function that is part of pytest so that the

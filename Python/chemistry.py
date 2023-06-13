@@ -27,7 +27,7 @@ def main ():
 
 def make_periodic_table ():
     # symbol: [ name, atomic_mass]
-    periodic_table_dict = {[
+    periodic_table_dict = [
         ["Ac", "Actinium", 227],
         ["Ag", "Silver", 107.8682],
         [" Al", "Aluminum", 26.9815386],
@@ -122,7 +122,7 @@ def make_periodic_table ():
         ["Yb",	"Ytterbium",	173.054],
         ["Zn",	"Zinc",	65.38],
         ["Zr",	"Zirconium", 91.224]
-    ]}
+    ]
         
     return periodic_table_dict
 
