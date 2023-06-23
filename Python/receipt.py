@@ -2,34 +2,65 @@ from ast import If
 from asyncore import read
 import csv
 from itertools import product
-
+from datetime import datetime
+print()
 
 def main():
-    products_dict = read_dict("products.csv", 0)
-    print(products_dict)
+    current_date_and_time = datetime.now()   
+    print("Inkom Emporium")
+    print()
+    try:
+        products_dict = read_dict("products.csv", 0)
+        #print(products_dict)
+    
+        with open("request.csv", "rt") as csv_file:
+            reader = csv.reader(csv_file)
+            next(reader)
 
-    with open("request.csv", "rt") as csv_file:
-        reader = csv.reader(csv_file)
-        next(reader)
+            # for the requested elements
+            REQUESTED_PRODUCT_INDEX = 0
+            REQUESTED_QUANTITY_INDEX = 1
 
-        # for the requested elements
-        REQUESTED_PRODUCT_INDEX = 0
-        REQUESTED_QUANTITY_INDEX = 1
+            # for the products_dict elements
+            PRODUCT_NAME_INDEX = 1
+            PRODUCT_COST_INDEX = 2
 
-        # for the products_dict elements
-        PRODUCT_NAME_INDEX = 1
-        PRODUCT_COST_INDEX = 2
-        for row_list in reader:
-            requested_product_number = row_list[REQUESTED_PRODUCT_INDEX]
-            requested_quantity = row_list[REQUESTED_QUANTITY_INDEX]
+            items_total = 0
+            subtotal = 0
 
-            for key, product in products_dict.items():
-                name = product[PRODUCT_NAME_INDEX]
-                cost = product[PRODUCT_COST_INDEX]
-                final_cost = float(cost) * float(requested_quantity)
-                if requested_product_number == key:
-                    print(
-                        f"Item: {name}, Quantity: {requested_quantity}, Price: ${cost}")
+            for row_list in reader:
+                requested_product_number = row_list[REQUESTED_PRODUCT_INDEX]
+                requested_quantity = row_list[REQUESTED_QUANTITY_INDEX]
+
+                for key, product in products_dict.items():
+
+                    name = product[PRODUCT_NAME_INDEX]
+                    cost = product[PRODUCT_COST_INDEX]
+
+                    if requested_product_number == key:
+                        items_total += int(requested_quantity)
+                        final_cost = float(cost) * float(requested_quantity)
+                        subtotal += final_cost
+                        print(f"Item: {name}: {requested_quantity}, ${cost}")
+            print()
+            tax = subtotal * 0.06
+            total = subtotal + tax 
+            print(f"\nNumber of items: {items_total}")
+            print(f"Subtotal: ${subtotal:.2f}")
+            print(f"Sales Tax: {tax:.2f}")
+            print(f"Total: ${total:.2f}")           
+            print()
+            print("Thank you for shopping at the Inkom Emporium!")
+            print(f"{current_date_and_time:%d/%m/%Y %H:%M:%S}")  
+            print()  
+            
+    except (FileNotFoundError, PermissionError) as error:
+        print(error)
+        print("Please choose a different file.")
+    except KeyError as key_err:
+        print(type(key_err).__name__, key_err)
+        print("Please enter a valid ID.")
+
 
 
 def read_dict(filename, key_column_index):
