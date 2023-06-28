@@ -33,9 +33,9 @@ def add_area_code(phone_number):
         "ddd-dddd" or "ddd-ddd-dddd"
     Return: a string of digits formated as "ddd-ddd-dddd"
     """
-    if add_area_code < 12:
-        add = int("208")
-        return add
+    if len(phone_number) < 12:
+        phone_number = "208-" + phone_number
+    return phone_number
 
 
 def read_list(filename):
