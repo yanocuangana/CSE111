@@ -7,6 +7,8 @@ print()
 
 def main():
     current_date_and_time = datetime.now()   
+    weekday = current_date_and_time.weekday()
+    print()
     print("Inkom Emporium")
     print()
     try:
@@ -42,10 +44,11 @@ def main():
                         final_cost = float(cost) * float(requested_quantity)
                         subtotal += final_cost
                         print(f"Item: {name}: {requested_quantity}, ${cost}")
+                        
             print()
             tax = subtotal * 0.06
             total = subtotal + tax 
-            print(f"\nNumber of items: {items_total}")
+            print(f"Number of items: {items_total}")
             print(f"Subtotal: ${subtotal:.2f}")
             print(f"Sales Tax: {tax:.2f}")
             print(f"Total: ${total:.2f}")           
