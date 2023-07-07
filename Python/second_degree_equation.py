@@ -14,6 +14,7 @@ def main():
         a=float(aentry.get())
         b=float(bentry.get())
         c=float(centry.get())
+        # Calls the discriminant, X_value1 and X_value2
         dis = discriminant(b, a, c)
         x_value1 = X_value1(dis, b, a)
         x_value2 = X_value2(dis, b, a)
@@ -31,15 +32,18 @@ def main():
         print()
     print(current_date_and_time)
 
+# calculate the discriminant
 def discriminant(b, a, c):
     discrimi = (b**2) - (4 * a * c)
     return discrimi
 
+# calculate the value of X_value1
 def X_value1(discrimi, b, a):
     x1 = (- b + (discrimi ** 0.5)) / (2 * a)
     
     return x1
 
+# calculate the value of X_value2
 def X_value2(discrimi, b, a):
     x2 = (- b - (discrimi ** 0.5)) / (2 * a)
 
