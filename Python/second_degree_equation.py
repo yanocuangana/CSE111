@@ -1,69 +1,87 @@
 import math
 import tkinter as tk
 from tkinter import *
-from number_entry import IntEntry
+from datetime import datetime
+
+
+current_date_and_time = datetime.now()
+
 
 def main():
+       
+    
     try:
-        
-        a = float(input("What is the value(a): "))
-        b = float(input("What is the value(b): "))
-        c = float(input("What is the value(c): "))
-
+        a=float(aentry.get())
+        b=float(bentry.get())
+        c=float(centry.get())
         dis = discriminant(b, a, c)
-        x_value = X_value(dis, b, a)
+        x_value1 = X_value1(dis, b, a)
+        x_value2 = X_value2(dis, b, a)
+        total1=(x_value1)
+        total2=(x_value2)
+        Label(text=f"{dis: .0f}", font="arial 15 bold").place(x=250, y=170)
+        Label(text=f"{total1: .1f}", font="arial 15 bold").place(x=250, y=210)
+        Label(text=f"{total2: .1f}", font="arial 15 bold").place(x=250, y=250)
 
-        text_result["text"] = f"{x_value: .1f}"
-      
+    
+
 
     except (FileNotFoundError, PermissionError) as error:
         print(type(error).__name__, error, sep=": ")
+        print()
+    print(current_date_and_time)
 
 def discriminant(b, a, c):
-    discriminant = (b**2) - (4 * a * c)
-    return discriminant
+    discrimi = (b**2) - (4 * a * c)
+    return discrimi
 
-def X_value(discriminant, b, a):
+def X_value1(discrimi, b, a):
+    x1 = (- b + (discrimi ** 0.5)) / (2 * a)
+    
+    return x1
 
-    x = (- b + discriminant ** (1/2)) / (2 * a)
-  
-    #x = (- b - discriminant ** (1/2)) / (2 * a)
-    return x
+def X_value2(discrimi, b, a):
+    x2 = (- b - (discrimi ** 0.5)) / (2 * a)
+
+    return x2
+
 
 equation = Tk()
 
 # Muda o titulo do programa por isso usamos o title.
 equation.title("Second degree equation")
+equation.geometry("500x400")
 
-tk.Label(equation, text="What is the value(a): ").grid(row=1)
-tk.Label(equation, text="What is the value(b): ").grid(row=2)
-tk.Label(equation, text="What is the value(c): ").grid(row=3)
-e1 = tk.Entry(equation)
-e2 = tk.Entry(equation)
-e3 = tk.Entry(equation)
+a = Label(equation, text="What is the value(a): ", font="arial 10")
+b = Label(equation, text="What is the value(b): ", font="arial 10")
+c = Label(equation, text="What is the value(c): ", font="arial 10")
+dis = Label(equation, text="total_discriminant: ", font="arial 10")
+total1 = Label(equation, text="total_X_value1: ", font="arial 10")
+total2 = Label(equation, text="total_X_value2: ", font="arial 10")
 
-e1.grid(row=1, column=1)
-e2.grid(row=2, column=1)
-e3.grid(row=3, column=1)
+a.place(x=50, y=20)
+b.place(x=50, y=70)
+c.place(x=50, y=120)
+dis.place(x=50, y=170)
+total1.place(x=50, y=210)
+total2.place(x=50, y=250)
 
-# Coloca texto na Janela por isso usamos o Label
-text_orientation = Label(equation, text="Calculate the second degree equation")
+avalue=StringVar()
+bvalue=StringVar()
+cvalue=StringVar()
 
-# Escolher a posição do texto usamos o grid e depois dizemos qual é a coluna e a linha.
-text_orientation.grid(column=0, row=0, padx=10, pady=10) #se querermos colocar um outro texto abaixo do primeiro é so mudar o numero de linha e deixar a coluna igual do primeiro.
+aentry =Entry(equation, textvariable=avalue, font="arial 15", width=15)
+bentry =Entry(equation, textvariable=bvalue, font="arial 15", width=15)
+centry =Entry(equation, textvariable=cvalue, font="arial 15", width=15)
 
-# Quando queremos adicionar um botão precisamos chamar o Button e dizer em qual tela ou janela ela esta, também devemos colocar no botão o que as pessoas devem fazer então para isso usamos o (Command=) e diz para ele o nome de uma função sem parenteses.
-botão = Button(equation, text="Calculate", command= main)
+#Coloca as barras onde voce coloca os numeros.
+aentry.place(x=250, y=20) 
+bentry.place(x=250, y=70)
+centry.place(x=250, y=120)
 
-# Quando criamos o botão devemos dizer em que coluna e linha deve estar ou seja deve estar dentro do grid.
-botão.grid(column=1, row=4, padx=10, pady=10) # Para dar espaço nos elementos usamos (padx e pady) que significa pading
-
-# Onde vai aparecer as cotações
-text_result = Label(equation, text="Result is:")
-
-# Usamos o grid também para indicar onde estará.
-text_result.grid(column=0, row=5, padx=10, pady=10)
+#Colocar botão de calcular e sair
+Button(text="Calculate", font="arial 15", bg="white",bd=10, command=main).place(x=50, y=300)
+Button(text="Exit", font="arial 15", bg="white",bd=10,  width=8, command=lambda:exit()).place(x=350, y=300)
 
 
 equation.mainloop()
-
